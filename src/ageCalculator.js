@@ -2,19 +2,29 @@ import React, { useState } from 'react';
 
 function AgeCalculator() {
   const [age, setAge] = useState({})
-  const [error, setError] = useState(false)
+  const [dayError, setDayError] = useState(false)
+  const [monthError, setMonthError] = useState(false)
+  const [yearError, setYearError] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setDayError(false)
+    setMonthError(false)
+    setYearError(false)
     const formData = Object.fromEntries(new FormData(e.target))
     const { day, month, year } = formData
-    if (Object.values(formData).some((value) => value !== "")) {
-      setError(false)
+    if (Object.values(formData).every((value) => value !== "")) {
+      setDayError(false)
+      setMonthError(false)
+      setYearError(false)
       let currentDate = new Date()
       const currentDay = currentDate.getDay()
       const currentMonth = currentDate.getMonth()
       const currentYear = currentDate.getFullYear()
-
+      if(currentYear < year){
+        setYearError(true)
+        return
+      }
       let newYear = currentYear - year;
       let newMonth = currentMonth - month;
       let newDay = currentDay - day;
@@ -40,22 +50,40 @@ function AgeCalculator() {
       setAge(age)
     }
     else{
-      setError(true)
+      if(!day)
+        setDayError(true)
+      if(!month)
+        setMonthError(true)
+      if(!year)
+        setYearError(true)
     }
   }
 
   const handleToggle = () => {
     const elem = document.querySelector("#switch")
-    console.log(elem.checked);
+    const button = document.querySelector('button');
     if(elem.checked){
       document.querySelector(".calculator-container").style.background = "white"
       document.querySelector(".show").style.color = "black"
+      button.addEventListener('mouseenter', () => {
+        button.style.backgroundColor = 'black';
+      });
+      button.addEventListener('mouseleave', () => {
+        button.style.backgroundColor = 'hsl(259, 100%, 65%)';
+      });
     }
     else if(!elem.checked){
       document.querySelector(".calculator-container").style.background = "black"
       document.querySelector(".show").style.color = "white"
+      button.addEventListener('mouseenter', () => {
+        button.style.backgroundColor = 'grey';
+      });
+      button.addEventListener('mouseleave', () => {
+        button.style.backgroundColor = 'hsl(259, 100%, 65%)';
+      });
     }
   }
+
   return (
     <div className='container'>
       <div className='calculator-container'>
@@ -68,17 +96,17 @@ function AgeCalculator() {
             <div className='day'>
               <label htmlFor='day'>DAY</label>
               <input id='day' name='day' placeholder='DD'></input>
-              {error && <span>This field is required.</span>}
+              {dayError && <span>This field is required.</span>}
             </div>
             <div className='month'>
               <label htmlFor='month'>MONTH</label>
               <input id='month' name='month' placeholder='MM'></input>
-              {error && <span>This field is required.</span>}
+              {monthError && <span>This field is required.</span>}
             </div>
             <div className='year'>
               <label htmlFor='year'>YEAR</label>
               <input id='year' name='year' placeholder='YYYY'></input>
-              {error && <span>This field is required.</span>}
+              {yearError && <span>This field is required.</span>}
             </div>
           </div>
           <div className='button'>
