@@ -27,12 +27,12 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
 ```
-git clone https://github.com/your-username/react-memory-game.git
+git clone https://github.com/your-username/ageCalculator.git
 ```
 
 2. Navigate to the project directory:
 ```
-cd react-memory-game
+cd ageCalculator
 ```
 
 3. Install dependencies:
