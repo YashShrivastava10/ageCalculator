@@ -1,7 +1,7 @@
-import { ThemeSelector } from './ThemeSelector';
-import { Form } from './Form';
-import { ShowAge } from './ShowAge';
-import { useAgeCalculator } from '../hooks/useAgeCalculator';
+import { useAgeCalculator } from "../hooks/useAgeCalculator";
+import { Form } from "./Form";
+import { ShowAge } from "./ShowAge";
+import { ThemeSelector } from "./ThemeSelector";
 
 export const AgeCalculator = () => {
 

@@ -1,13 +1,28 @@
 import { useState } from 'react';
 
-export const useAgeCalculator = () => {
-  const [age, setAge] = useState({});
-  const [error, setError] = useState({ dayError: false, monthError: false, yearError: false });
+export type Error = {
+  dayError: boolean,
+  monthError: boolean,
+  yearError: boolean,
+};
 
-  const handleSubmit = (e) => {
+export type Age = {
+  years: number,
+  months: number,
+  days: number,
+};
+
+export const useAgeCalculator = () => {
+
+  const [age, setAge] = useState<Age | {}>({});
+  const [error, setError] = useState<Error>({ dayError: false, monthError: false, yearError: false });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.target));
-    const { day, month, year } = formData;
+    
+    const form = e.target as HTMLFormElement;
+    const formData = Object.fromEntries(new FormData(form)) as Record<string, FormDataEntryValue>;
+    const { day, month, year } = formData as { day: string, month: string, year: string };
 
     setError({ dayError: false, monthError: false, yearError: false });
 
@@ -20,7 +35,7 @@ export const useAgeCalculator = () => {
       return;
     }
 
-    const birthDate = new Date(year, month - 1, day);
+    const birthDate = new Date(Number(year), Number(month) - 1, Number(day));
     const currentDate = new Date();
 
     if (birthDate > currentDate) {

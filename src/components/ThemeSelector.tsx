@@ -1,4 +1,3 @@
-import React from 'react'
 import { handleToggle } from '../helper'
 
 export const ThemeSelector = () => {

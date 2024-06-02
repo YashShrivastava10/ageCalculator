@@ -1,6 +1,19 @@
-import React from 'react'
+import { Error } from "../hooks/useAgeCalculator"
 
-const FormFields = ({ name, min, max, placeholder, error }) => {
+type FormProps = {
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  error: Error
+}
+
+type FormFieldProps = {
+  name: string,
+  min: string,
+  max: string | number,
+  placeholder: string,
+  error: boolean,
+}
+
+const FormFields = ({ name, min, max, placeholder, error }: FormFieldProps) => {
   return (
     <>
       <label htmlFor={name}>DAY</label>
@@ -10,9 +23,9 @@ const FormFields = ({ name, min, max, placeholder, error }) => {
   )
 }
 
-export const Form = ({ handleSubmit, error }) => {
+export const Form = ({ handleSubmit, error }: FormProps) => {
   return (
-    <form onSubmit={(e) => { handleSubmit(e) }}>
+    <form onSubmit={handleSubmit}>
       <div className='first-row'>
 
         <div className='day'>
