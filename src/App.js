@@ -1,5 +1,5 @@
 import './App.css';
-import AgeCalculator from './ageCalculator';
+import AgeCalculator from './components/AgeCalculator';
 
 function App() {
   return (
