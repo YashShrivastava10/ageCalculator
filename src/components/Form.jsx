@@ -1,24 +1,32 @@
 import React from 'react'
 
-export const Form = ({ handleSubmit, dayError, monthError, yearError }) => {
+const FormFields = ({ name, min, max, placeholder, error }) => {
+  return (
+    <>
+      <label htmlFor={name}>DAY</label>
+      <input id={name} min={min} max={max} type="number" inputMode="numeric" name={name} placeholder={placeholder} />
+      {error && <span>This field is required.</span>}
+    </>
+  )
+}
+
+export const Form = ({ handleSubmit, error }) => {
   return (
     <form onSubmit={(e) => { handleSubmit(e) }}>
       <div className='first-row'>
+
         <div className='day'>
-          <label htmlFor='day'>DAY</label>
-          <input id='day' min="1" max="31" type="number" inputMode="numeric" name='day' placeholder='DD'></input>
-          {dayError && <span>This field is required.</span>}
+          <FormFields name="day" min="1" max="31" placeholder="DD" error={error.dayError} />
         </div>
+
         <div className='month'>
-          <label htmlFor='month'>MONTH</label>
-          <input id='month' min="1" max="12" type="number" inputMode="numeric" name='month' placeholder='MM'></input>
-          {monthError && <span>This field is required.</span>}
+          <FormFields name="month" min="1" max="12" placeholder="MM" error={error.monthError} />
         </div>
+
         <div className='year'>
-          <label htmlFor='year'>YEAR</label>
-          <input id='year' min="1" max="2023" type="number" inputMode="numeric" name='year' placeholder='YYYY'></input>
-          {yearError && <span>This field is required.</span>}
+          <FormFields name="year" min="1" max={new Date().getFullYear()} placeholder="YYYY" error={error.yearError} />
         </div>
+        
       </div>
       <div className='button'>
         <hr />

@@ -5,7 +5,7 @@ import { useAgeCalculator } from '../hooks/useAgeCalculator';
 
 export const AgeCalculator = () => {
 
-  const { handleSubmit, dayError, monthError, yearError, age } = useAgeCalculator()
+  const { handleSubmit, error, age } = useAgeCalculator()
 
   return (
     <div className='container'>
@@ -13,7 +13,7 @@ export const AgeCalculator = () => {
 
         <ThemeSelector />
 
-        <Form handleSubmit={handleSubmit} dayError={dayError} monthError={monthError} yearError={yearError}/>
+        <Form handleSubmit={handleSubmit} error={error} />
 
         <ShowAge age={age}/>
         
